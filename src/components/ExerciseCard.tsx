@@ -4,9 +4,9 @@ import { Entypo } from '@expo/vector-icons';
 
 type Props = TouchableOpacityProps & {};
 
-export function ExerciseCard({ ...rest }: Props) {
+export function ExerciseCard({ ...props }: Props) {
   return (
-    <TouchableOpacity {...rest}>
+    <TouchableOpacity {...props}>
       <HStack
         bg="gray.500"
         alignItems="center"
@@ -28,7 +28,7 @@ export function ExerciseCard({ ...rest }: Props) {
         />
 
         <VStack flex={1}>
-          <Heading fontSize="lg" color="white">
+          <Heading fontFamily='heading' fontSize="lg" color="white">
             Remada unilateral
           </Heading>
 

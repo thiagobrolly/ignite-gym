@@ -5,7 +5,7 @@ type Props = IPressableProps & {
   isActive: boolean;
 };
 
-export function Group({ name, isActive, ...rest }: Props) {
+export function Group({ name, isActive, ...props }: Props) {
   return (
     <Pressable
       mr={3}
@@ -21,7 +21,7 @@ export function Group({ name, isActive, ...rest }: Props) {
         borderColor: 'green.500',
         borderWidth: 1,
       }}
-      {...rest}
+      {...props}
     >
       <Text
         color={isActive ? "green.500" : "gray.200"}

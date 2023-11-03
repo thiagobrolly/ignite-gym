@@ -5,7 +5,7 @@ type Props = IButtonProps & {
   varian?: 'solid' | 'outline';
 };
 
-export function Button({ title, variant = 'solid', ...rest }: Props) {
+export function Button({ title, variant = 'solid', ...props }: Props) {
   return (
     <ButtonNativeBase
       w="full"
@@ -15,7 +15,7 @@ export function Button({ title, variant = 'solid', ...rest }: Props) {
       borderColor="green.500"
       rounded="sm"
       _pressed={{ bg: variant === 'outline' ? 'gray.500' : 'green.500' }}
-      {...rest}
+      {...props}
     >
       <Text
         color={variant === 'outline' ? 'green.500' : 'white'}

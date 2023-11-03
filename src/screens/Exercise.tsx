@@ -10,12 +10,14 @@ import {
   VStack,
 } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
-import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { Feather } from '@expo/vector-icons';
+
+import { Button } from '@components/Button';
+import { AppNavigatorRoutesProps } from '@routes/app.routes';
+
 import BodySvg from '@assets/body.svg';
 import SeriesSvg from '@assets/series.svg';
 import RepetitionsSvg from '@assets/repetitions.svg';
-import { Button } from '@components/Button';
 
 export function Exercise() {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
@@ -37,7 +39,7 @@ export function Exercise() {
           mb={8}
           alignItems="center"
         >
-          <Heading color="gray.100" fontSize="lg" flexShrink={1}>
+          <Heading color="gray.100" fontFamily='heading' fontSize="lg" flexShrink={1}>
             Puxada frontal
           </Heading>
 
@@ -79,9 +81,9 @@ export function Exercise() {
               </HStack>
 
               <HStack>
-                <SeriesSvg />
+                <RepetitionsSvg />
                 <Text color="gray.200" ml={2}>
-                  3 séries
+                  12 Repetições
                 </Text>
               </HStack>
             </HStack>
