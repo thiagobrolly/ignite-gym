@@ -2,11 +2,13 @@ import axios from 'axios';
 import { AppError } from '@utils/AppError';
 
 const api = axios.create({
-  baseURL: 'http://172.17.0.1:3333',
+  baseURL: process.env.EXPO_PUBLIC_BASE_URL,
 });
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    return response;
+  },
   (error) => {
     if (error.response && error.response.data) {
       return Promise.reject(new AppError(error.response.data.message));

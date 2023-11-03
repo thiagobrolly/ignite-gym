@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import {
   Center,
   Heading,
@@ -9,10 +11,9 @@ import {
 } from 'native-base';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+
 import { ScreenHeader } from '@components/ScreenHeader';
 import { UserPhoto } from '@components/UserPhoto';
-import { useState } from 'react';
-import { TouchableOpacity } from 'react-native';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 
@@ -41,20 +42,20 @@ export function Profile() {
         return;
       }
 
-      if (photoSelected.assets[0].uri) {
-        const photoInfo = await FileSystem.getInfoAsync(
-          photoSelected.assets[0].uri,
-        );
+      const uriPhotoSelected = photoSelected.assets[0].uri;
 
-        if (photoInfo.size && photoInfo.size / 1024 / 1024 > 5) {
+      if (uriPhotoSelected) {
+        const photoInfo = await FileSystem.getInfoAsync(uriPhotoSelected);
+
+        if (photoInfo.exists && photoInfo.size / 1024 / 1024 > 5) {
           return toast.show({
             title: 'Essa imagem é muito grande. Escolha uma de até 5MB.',
             placement: 'top',
-            bgColor: 'red.500'
+            bgColor: 'red.500',
           });
-          //return Alert.alert('Essa imagem é muito grande. Escolha uma de até 5MB.');
         }
-        setUserPhoto(photoSelected.assets[0].uri);
+        
+        setUserPhoto(uriPhotoSelected);
       }
     } catch (error) {
       console.log(error);
@@ -102,6 +103,7 @@ export function Profile() {
           <Heading
             color="gray.200"
             fontSize="md"
+            fontFamily='heading'
             mb={2}
             mt={12}
             alignSelf="flex-start"
