@@ -1,4 +1,4 @@
-import { LogBox, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import { NativeBaseProvider } from 'native-base';
 import {
   useFonts,
@@ -8,7 +8,7 @@ import {
 
 import { Routes } from '@routes/index';
 
-import { AuthContext } from '@contexts/AuthContext';
+import { AuthContextProvider } from '@contexts/AuthContext';
 
 import { THEME } from './src/theme';
 import { Loading } from '@components/Loading';
@@ -23,18 +23,9 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <AuthContext.Provider
-        value={{
-          user: {
-            id: '1',
-            name: 'Rodrigo',
-            email: 'thiago@email.com',
-            avatar: 'thiago.png',
-          },
-        }}
-      >
+      <AuthContextProvider>
         {fontsLoaded ? <Routes /> : <Loading />}
-      </AuthContext.Provider>
+      </AuthContextProvider>
     </NativeBaseProvider>
   );
 }
