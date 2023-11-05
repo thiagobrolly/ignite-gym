@@ -1,5 +1,7 @@
 import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
+
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
 
 import { Input } from '@components/Input';
@@ -8,11 +10,26 @@ import { Button } from '@components/Button';
 import BackgroundImg from '@assets/background.png';
 import LogoSvg from '@assets/logo.svg';
 
+type FormDataProps = {
+  email: string;
+  password: string;
+};
+
 export function SignIn() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>();
+
   function handleNewAccout() {
     navigation.navigate('signUp');
+  }
+
+  function handleSignIn({ email, password }: FormDataProps) {
+    console.log(email, password);
   }
 
   return (
@@ -42,14 +59,37 @@ export function SignIn() {
             Acesse sua conta
           </Heading>
 
-          <Input
-            placeholder="E-mail"
-            keyboardType="email-address"
-            autoCapitalize="none"
+          <Controller
+            control={control}
+            name="email"
+            rules={{ required: 'Informe o e-mail' }}
+            render={({ field: { onChange } }) => (
+              <Input
+                placeholder="E-mail"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                onChangeText={onChange}
+                errorMessage={errors.email?.message}
+              />
+            )}
           />
-          <Input placeholder="Senha" secureTextEntry />
 
-          <Button title="Acessar" />
+          <Controller
+            control={control}
+            name="password"
+            rules={{ required: 'Informe a senha' }}
+            render={({ field: { onChange } }) => (
+              <Input
+                placeholder="Senha"
+                secureTextEntry
+                onChangeText={onChange}
+                errorMessage={errors.password?.message}
+                onSubmitEditing={handleSubmit(handleSignIn)}
+              />
+            )}
+          />
+
+          <Button title="Acessar" onPress={handleSubmit(handleSignIn)} />
         </Center>
 
         <Center mt={24}>
